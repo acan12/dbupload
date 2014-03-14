@@ -10,7 +10,7 @@ require "spreadsheet"
 require "nokogiri"
 
 
-filename = 'source_data_from_entry_team.xls'  # source file
+filename = '1stUploadOutlet_Menu.xls'  # source file
 @filename_target = 'import_outlets_update.sql'  # target file
 @sql=[]
 
@@ -29,16 +29,16 @@ end
 
 Spreadsheet.client_encoding = 'UTF-8'
 book = Spreadsheet.open filename
-sheet3 = book.worksheet 2
+sheet = book.worksheet 0
 
 
 puts "[#{DateTime.now}] Start..... "
-sheet3.each_with_index do |row,i|
+sheet.each_with_index do |row,i|
   next if i==0
   
   data = {}
-  data[:slug]  = row[1]
-  data[:image] = row[2]
+  data[:slug]  = row[2]
+  data[:image] = row[3]
   
 
   @sql << build_command(data)

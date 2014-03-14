@@ -10,11 +10,14 @@ require "spreadsheet"
 require "nokogiri"
 
 
-FILENAME = 'data_request_user_by_hendra.xls'  # source file
+filename = 'source_data_from_entry_team.xls'  # source file
 @filename_target = 'import_outlets.sql'  # target file
-
+sheet_index = 9
 @cols_num = 23   # total column start from index zero.
 @col_notstrtype = ['enabled','city_id', 'neighbourhood_id', 'mall_id', 'latitude', 'longitude', 'price_id']  # column integer type
+
+
+
 @col_notstrtype_id= []  # column integer type index
 
 
@@ -47,14 +50,14 @@ end
 # Main
 
 Spreadsheet.client_encoding = 'UTF-8'
-book = Spreadsheet.open FILENAME
-sheet2 = book.worksheet 1
+book = Spreadsheet.open filename
+sheet = book.worksheet sheet_index
 
 
 sql = ""
 
 puts "[#{DateTime.now}] Start..... "
-sheet2.each_with_index do |row,i|
+sheet.each_with_index do |row,i|
   
   tmp=""
   make_row(tmp, row, i)
